@@ -28,6 +28,7 @@ We'll use standard C libraries and system calls to implement our basic shell
 
 ## Requirements
 
+- The Shell should be both interactive and non-interactive
 - A C compiler (e.g., GCC)
 - A text editor or IDE for writing C code
 - Basic understanding of the C programming language
@@ -62,7 +63,7 @@ To build and run the shell, follow this steps:
 
 1. Save the code example in a file named `simple_shell.c`.
 2. Open a terminal and navigate to the directory containing the `simple_shell.c` file.
-3. Compile the code using the following command: gcc -0 simple_shell simple_shell.c
+3. Compile the code using the following command: gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
 4. Run the compiled executable with this command: ./simple_shell
 
 You should now see the shell prompt, and you can enter commands to execute them. To exit the shell, press Ctrl+D or enter the `exit` command.
