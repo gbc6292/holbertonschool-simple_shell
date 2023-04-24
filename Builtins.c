@@ -46,17 +46,19 @@ void execute_builtin(char *command, char **args)
 
 int command_exists(char *command, char *full_path)
 {
-	char *path_env = getenv("PATH");
+	char *path_env = strdup(getenv("PATH"));
 	char *path = strtok(path_env, ":");
-
+       
 	while (path != NULL)
 	{
 		snprintf(full_path, MAX_COMMAND_LEN, "%s/%s", path, command);
 		if (access(full_path, X_OK) == 0)
 		{
+			free(path_env);
 			return (1);
 		}
 		path = strtok(NULL, ":");
 	}
+	free(path_env);
 	return (0);
 }
