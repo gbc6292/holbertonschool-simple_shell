@@ -12,6 +12,7 @@ void execute_command(char *line)
 	int status;
 	char **args = split_line(line);
 	char full_path[MAX_COMMAND_LEN];
+	char full_path_cpy[MAX_COMMAND_LEN];
 
 	if (is_builtin(args[0]))
 	{
@@ -19,7 +20,6 @@ void execute_command(char *line)
 		free(args);
 		return;
 	}
-
 	if (!command_exists(args[0], full_path))
 	{
 		fprintf(stderr, "%s: command not found\n", args[0]);
@@ -27,16 +27,17 @@ void execute_command(char *line)
 		return;
 	}
 
+	strcpy(full_path_cpy, full_path);
+
 	PID = fork();
 	if (PID == 0)
 	{
 		/* Child procces begins */
-		if (execve(full_path, args, environ) == -1)
+		if (execve(full_path_cpy, args, environ) == -1)
 		{
 			perror("Error");
 			exit(EXIT_FAILURE);
 		}
-
 	}
 	else if (PID < 0)
 	{
