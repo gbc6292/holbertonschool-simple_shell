@@ -29,7 +29,7 @@
 
 int is_builtin(char *command);
 void execute_builtin(char *command, char **args);
-int command_exists(char *line, char *full_path);
+char *command_exists(char *command);
 void execute_command(char *command);
 char **split_line(char *line);
 
