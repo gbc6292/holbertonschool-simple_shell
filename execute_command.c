@@ -35,6 +35,7 @@ void execute_command(char *line)
 		free(args);
 		return;
 	}
+
 	PID = fork();
 	if (PID == 0)
 	{
@@ -44,7 +45,6 @@ void execute_command(char *line)
 			perror("Error");
 			exit(EXIT_FAILURE);
 		}
-
 	}
 	else if (PID < 0)
 	{
