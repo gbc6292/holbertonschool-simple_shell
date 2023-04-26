@@ -8,7 +8,7 @@
 
 int is_builtin(char *command)
 {
-	if (strcmp(command, "cd") == 0 || strcmp(command, "exit") == 0)
+	if (strcmp(command, "exit") == 0 || strcmp(command, "env") == 0)
 	{
 		return (1);
 	}
@@ -24,39 +24,57 @@ int is_builtin(char *command)
 
 void execute_builtin(char *command, char **args)
 {
-	if (strcmp(command, "cd") == 0)
-	{
-		if (chdir(args[1]) != 0)
-		{
-			perror("Error");
-		}
-	}
+	char **env;
+	(void)args;
 
-	else if (strcmp(command, "exit") == 0)
+	if (strcmp(command, "exit") == 0)
 	{
 		exit(EXIT_SUCCESS);
+	}
+
+	else if (strcmp(command, "env") == 0)
+	{
+		for (env = environ; *env; ++env)
+		{
+			printf("%s\n", *env);
+		}
 	}
 }
 
 /**
  * command_exists - makes sure the command exists and can be executed
  * @command: the command to be analyzed for existance
- * Return: 1 for the command existing or 0 for command not existing
+ * Return: full_path for the command existing or NULL for command not existing
  */
 
-int command_exists(char *command, char *full_path)
+char *command_exists(char *command)
 {
 	char *path_env = getenv("PATH");
-	char *path = strtok(path_env, ":");
+	char *path_env_copy = strdup(path_env);
+	char full_path[MAX_COMMAND_LEN];
+	char *saveptr;
+	char *path = strtok_r(path_env_copy, ":", &saveptr);
+
+
+	if (!path_env)
+		return (NULL);
+
+	if (!path_env_copy)
+	{
+		perror("Error");
+		return (NULL);
+	}
 
 	while (path != NULL)
 	{
-		snprintf(full_path, MAX_COMMAND_LEN, "%s/%s", path, command);
+		snprintf(full_path, sizeof(full_path), "%s/%s", path, command);
 		if (access(full_path, X_OK) == 0)
 		{
-			return (1);
+			free(path_env_copy);
+			return (strdup(full_path));
 		}
-		path = strtok(NULL, ":");
+		path = strtok_r(NULL, ":", &saveptr);
 	}
-	return (0);
+	free(path_env_copy);
+	return (NULL);
 }

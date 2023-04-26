@@ -2,7 +2,7 @@
 
 /**
  *execute_command - helps execute a command in the prompt
- *@command: the command being executed once it is written in the prompt line
+ *@line: the command being executed once it is written in the prompt line
  *Return: Exit error if the command couldn't be executed
 */
 
@@ -11,7 +11,7 @@ void execute_command(char *line)
 	pid_t PID;
 	int status;
 	char **args = split_line(line);
-	char full_path[MAX_COMMAND_LEN];
+	char *full_path = NULL;
 
 	if (is_builtin(args[0]))
 	{
@@ -19,14 +19,22 @@ void execute_command(char *line)
 		free(args);
 		return;
 	}
+	if (args[0][0] == '.' || args[0][0] == '/')
+	{
+		if (access(args[0], X_OK) == 0)
+		{
+			full_path = args[0];
+		}
+	}
+	else
+		full_path = command_exists(args[0]);
 
-	if (!command_exists(args[0], full_path))
+	if (!full_path)
 	{
 		fprintf(stderr, "%s: command not found\n", args[0]);
 		free(args);
 		return;
 	}
-
 	PID = fork();
 	if (PID == 0)
 	{
@@ -48,9 +56,8 @@ void execute_command(char *line)
 		/* Parent process */
 		do {
 			waitpid(PID, &status, WUNTRACED);
-		}
-
-		while (!WIFEXITED(status) && !WIFSIGNALED(status));
+		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
 	free(args);
+	free(full_path);
 }
