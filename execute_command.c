@@ -1,7 +1,7 @@
 #include "shell.h"
 /**
  *execute_command - helps execute a command in the prompt
- *@command: the command being executed once it is written in the prompt line
+ *@line: the command being executed once it is written in the prompt line
  *Return: Exit error if the command couldn't be executed
 */
 void execute_command(char *line)
@@ -14,7 +14,6 @@ void execute_command(char *line)
 	if (is_builtin(args[0]))
 	{
 		execute_builtin(args[0], args);
-		free(args);
 		return;
 	}
 	if (args[0][0] == '.' || args[0][0] == '/')
@@ -56,6 +55,9 @@ void execute_command(char *line)
 			waitpid(PID, &status, WUNTRACED);
 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
-	free(args);
+	if (full_path != args[0])
 	free(full_path);
+
+	if (args)
+	free(args);
 }

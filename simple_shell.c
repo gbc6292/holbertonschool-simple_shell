@@ -31,13 +31,11 @@ int main(void)
 			}
 			break;
 		}
-
 		if (line[READ - 1] == '\n')
 		{
 			/* Remove newline character */
 			line[READ - 1] = '\0';
 		}
-
 		if (strlen(line) > 0)
 		{
 			/* Execute the command */
@@ -46,8 +44,6 @@ int main(void)
 		if (!is_interactive)
 			break;
 	}
-
-	/* Free memory and exit */
 	free(line);
 	return (EXIT_SUCCESS);
 }
