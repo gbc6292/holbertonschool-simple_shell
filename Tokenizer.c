@@ -15,7 +15,6 @@ char **split_line(char *line)
 
 	if (tokens == NULL)
 	{
-		free(tokens);
 		return(NULL);
 	}
 
