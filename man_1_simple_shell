@@ -1,0 +1,62 @@
+." Man page for shell
+.TH SIMPLE SHELL 1 "28 April 2023" "v1.0" "Simple Shell User Manual"
+.SH NAME
+Simple shell - A simple command line shell
+.SH SYNOPSIS
+.B shell
+.br
+.SH DESCRIPTION
+The
+.B shell
+is a simple command line shell that allows users to execute commands and built-in functions in a Unix-like environment. It is designed to provide basic functionality and ease of use.
+
+.SH OPTIONS
+There are no command line options available for the shell program.
+
+.SH BUILT-IN COMMANDS
+The shell supports the following built-in commands:
+
+.IP "cd"
+Change the current working directory to the specified path.
+.IP "exit"
+Exit the shell, terminating the current session.
+.IP "env"
+Print the environment variables.
+
+.SH USAGE
+Launch the shell by running the shell executable. Once the shell is running, simply type in commands and press Enter to execute them. The shell will continue running until the exit command is entered or it is terminated by a signal.
+
+.SH EXAMPLES
+Change the current working directory to the /home/user directory:
+.RS
+.nf
+$ cd /home/user
+.fi
+.RE
+
+Display environment variables:
+.RS
+.nf
+$ env
+.fi
+.RE
+
+Exit the shell:
+.RS
+.nf
+$ exit
+.fi
+.RE
+
+.SH SEE ALSO
+.BR sh (1),
+.BR bash (1),
+.BR dash (1),
+.BR ksh (1),
+.BR zsh (1)
+
+.SH BUGS
+The shell is a simple implementation and does not support many advanced features found in more complex shells. It may be less suitable for advanced users or complex scripting tasks.
+
+.SH AUTHOR
+The shell was developed by [Jose Alvarez & Giovanni Barreto]. Please report any bugs or issues to [6292@holbertonstudents.com].
