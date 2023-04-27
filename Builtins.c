@@ -14,6 +14,7 @@ void execute_builtin(char *command, char **args)
 	if (strcmp(command, "exit") == 0)
 	{
 		free(args);
+		free(command);
 		exit(EXIT_SUCCESS);
 	}
 
@@ -24,8 +25,6 @@ void execute_builtin(char *command, char **args)
 			printf("%s\n", *env);
 		}
 	}
-	if (args)
-		free(args);
 }
 
 /**
