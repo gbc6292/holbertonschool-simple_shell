@@ -16,10 +16,8 @@ int main(void)
 	{
 		if (is_interactive)
 		{
-			printf(PROMPT);
-			fflush(stdout);
+			display_prompt();
 		}
-
 		READ = getline(&line, &len, stdin);
 
 		if (READ == -1)

@@ -26,12 +26,12 @@
 
 /* Prototypes */
 
-
 int is_builtin(char *command);
 void execute_builtin(char *command, char **args);
 char *command_exists(char *command);
 void execute_command(char *command);
 char **split_line(char *line);
+void display_prompt();
 
 /* Global */
 extern char **environ;
