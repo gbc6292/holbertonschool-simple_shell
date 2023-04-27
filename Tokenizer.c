@@ -13,6 +13,12 @@ char **split_line(char *line)
 	char *token;
 	int position = 0;
 
+	if (tokens == NULL)
+	{
+		free(tokens);
+		return(NULL);
+	}
+
 	if (!tokens)
 	{
 		fprintf(stderr, "Allocation error\n");

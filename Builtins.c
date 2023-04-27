@@ -1,5 +1,4 @@
 #include "shell.h"
-
 /**
  * execute_builtin - checks to see if the exectuted argument is a command
  * @command: the command being entered in the command prompt of the shell
@@ -14,6 +13,7 @@ void execute_builtin(char *command, char **args)
 
 	if (strcmp(command, "exit") == 0)
 	{
+		free(args);
 		exit(EXIT_SUCCESS);
 	}
 
@@ -24,6 +24,8 @@ void execute_builtin(char *command, char **args)
 			printf("%s\n", *env);
 		}
 	}
+	if (args)
+		free(args);
 }
 
 /**
