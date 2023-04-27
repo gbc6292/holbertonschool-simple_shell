@@ -1,20 +1,4 @@
 #include "shell.h"
-
-/**
- * is_builtin - checks to see if the command being used is a built-in
- *@command: the command being entered in the command prompt line
- *Return: 1 if the command is a built-in or 0 if not.
- */
-
-int is_builtin(char *command)
-{
-	if (strcmp(command, "exit") == 0 || strcmp(command, "env") == 0)
-	{
-		return (1);
-	}
-	return (0);
-}
-
 /**
  * execute_builtin - checks to see if the exectuted argument is a command
  * @command: the command being entered in the command prompt of the shell
@@ -29,6 +13,7 @@ void execute_builtin(char *command, char **args)
 
 	if (strcmp(command, "exit") == 0)
 	{
+		free(args);
 		exit(EXIT_SUCCESS);
 	}
 
@@ -39,12 +24,14 @@ void execute_builtin(char *command, char **args)
 			printf("%s\n", *env);
 		}
 	}
+	if (args)
+		free(args);
 }
 
 /**
  * command_exists - makes sure the command exists and can be executed
  * @command: the command to be analyzed for existance
- * Return: full_path for the command existing or NULL for command not existing
+ * Return: full_path for the command exist or NULL otherwise
  */
 
 char *command_exists(char *command)
@@ -54,7 +41,6 @@ char *command_exists(char *command)
 	char full_path[MAX_COMMAND_LEN];
 	char *saveptr;
 	char *path = strtok_r(path_env_copy, ":", &saveptr);
-
 
 	if (!path_env)
 		return (NULL);

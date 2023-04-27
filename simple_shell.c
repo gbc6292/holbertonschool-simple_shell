@@ -16,8 +16,8 @@ int main(void)
 	{
 		if (is_interactive)
 		{
-		printf(PROMPT);
-		fflush(stdout);
+			printf(PROMPT);
+			fflush(stdout);
 		}
 
 		READ = getline(&line, &len, stdin);
@@ -44,7 +44,6 @@ int main(void)
 		if (!is_interactive)
 			break;
 	}
-	/* Free memory and exit */
 	free(line);
 	return (EXIT_SUCCESS);
 }

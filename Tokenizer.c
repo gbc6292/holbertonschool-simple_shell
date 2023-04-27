@@ -13,6 +13,12 @@ char **split_line(char *line)
 	char *token;
 	int position = 0;
 
+	if (tokens == NULL)
+	{
+		free(tokens);
+		return(NULL);
+	}
+
 	if (!tokens)
 	{
 		fprintf(stderr, "Allocation error\n");
@@ -22,7 +28,7 @@ char **split_line(char *line)
 	token = strtok(line, " \t\r\n\a");
 	while (token != NULL)
 	{
-		tokens[position] = strdup(token);
+		tokens[position] = token;
 		position++;
 
 		if (position >= MAX_NUM_ARGS)
