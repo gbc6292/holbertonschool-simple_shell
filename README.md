@@ -1,5 +1,7 @@
 # Creating a Basic Shell in C
 
+![Simple shell without memory leaks(https://github.com/gbc6292/holbertonschool-simple_shell/blob/master/IMG-0746.jpg)
+
 A shell is a command-line interface that allows users to interact with the operating system by entering commands.  Here we'll discuse how to create a basic shell.
 
 ## Table of Contents
